@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Für Helin 🌸</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, #ffe3ef 0%, #ffd6e8 35%, #ffe9f6 70%, #fff0f8 100%);
+    font-family: 'Baloo 2', 'Comic Sans MS', 'Segoe UI Rounded', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 44px 32px;
+    max-width: 440px;
+    width: 88vw;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 32px;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 20px 50px rgba(255, 130, 180, 0.25);
+  }
+
+  .box {
+    font-size: 64px;
+    cursor: pointer;
+    display: inline-block;
+    animation: wiggle 1.8s ease-in-out infinite;
+    filter: drop-shadow(0 8px 14px rgba(255, 120, 170, 0.35));
+    transition: transform 0.2s ease;
+  }
+  .box:active { transform: scale(0.9); }
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+  }
+
+  .tap-hint {
+    margin-top: 10px;
+    color: #d6528f;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  #message {
+    display: none;
+    animation: popIn 0.7s cubic-bezier(.26,1.4,.5,1) forwards;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .title {
+    font-size: 30px;
+    color: #d6528f;
+    margin: 4px 0 2px;
+    line-height: 1.3;
+  }
+  .title b { color: #ff3d7f; }
+
+  .sub {
+    color: #a8467c;
+    font-size: 15.5px;
+    line-height: 1.75;
+    margin: 16px 0 22px;
+  }
+
+  .stickers {
+    font-size: 22px;
+    letter-spacing: 10px;
+    margin-bottom: 4px;
+  }
+
+  .apology {
+    margin-top: 22px;
+    padding: 18px 20px;
+    border-radius: 20px;
+    background: #fff6fa;
+    border: 2px dashed #ffb3d1;
+    color: #b5548f;
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: left;
+  }
+  .apology b { color: #ff3d7f; }
+
+  .float {
+    position: absolute;
+    bottom: -10%;
+    opacity: 0.9;
+    animation: rise linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0.95; }
+    100% { transform: translateY(-115vh) translateX(var(--drift)) rotate(360deg); opacity: 0; }
+  }
+
+  .sparkle {
+    position: absolute;
+    z-index: 2;
+    animation: twinkle 1.6s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div id="starter">
+      <div class="box" onclick="showMessage()">🎁</div>
+      <div class="tap-hint">tipp mich an 💗</div>
+    </div>
+
+    <div id="message">
+      <div class="stickers">🌸 🐻 ✨</div>
+      <p class="title"><b>Gürkan</b> liebt <b>Helin</b><br>ganz doll, ganz fest, ganz echt 🥺💗</p>
+      <p class="sub">
+        Du bist das Süßeste, was mir passiert ist.<br>
+        Jedes Lächeln von dir, jede kleine Nachricht — mein Herz macht sofort<br>
+        "boing boing" 🐰💕 Ich bin so froh, dass es dich gibt.
+      </p>
+
+      <div class="apology">
+        <b>Kleine Extra-Portion Sorry 🍯:</b><br>
+        Falls ich dich irgendwann verletzt oder traurig gemacht habe — das
+        tut mir wirklich leid, das wollte ich nie. Du verdienst nur Liebes-
+        und keine Sorgen. Ich pass ab jetzt besser auf dich auf 🐻💗
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById('message').style.display = 'block';
+      document.getElementById('starter').style.display = 'none';
+      startFloaters();
+      burstSparkles();
+    }
+
+    const emojis = ['💗','🌸','✨','🐻','💕','🍓','🌷'];
+
+    function startFloaters() {
+      setInterval(() => {
+        const el = document.createElement('div');
+        el.className = 'float';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.fontSize = (16 + Math.random() * 20) + 'px';
+        el.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
+        el.style.animationDuration = (5 + Math.random() * 4) + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 9000);
+      }, 280);
+    }
+
+    function burstSparkles() {
+      for (let i = 0; i < 14; i++) {
+        setTimeout(() => {
+          const s = document.createElement('div');
+          s.className = 'sparkle';
+          s.textContent = '✨';
+          s.style.left = (50 + Math.random() * 40 - 20) + '%';
+          s.style.top = (35 + Math.random() * 20) + '%';
+          s.style.fontSize = (12 + Math.random() * 14) + 'px';
+          document.body.appendChild(s);
+          setTimeout(() => s.remove(), 1800);
+        }, i * 90);
+      }
+    }
+  </script>
+
+</body>
+</html>
